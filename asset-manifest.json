@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/Frank-P-Lu/scales/static/css/main.fcc8065d.css",
+    "main.js": "/Frank-P-Lu/scales/static/js/main.878176c0.js",
+    "static/js/787.90bbe84c.chunk.js": "/Frank-P-Lu/scales/static/js/787.90bbe84c.chunk.js",
+    "static/media/logo.svg": "/Frank-P-Lu/scales/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/Frank-P-Lu/scales/index.html",
+    "main.fcc8065d.css.map": "/Frank-P-Lu/scales/static/css/main.fcc8065d.css.map",
+    "main.878176c0.js.map": "/Frank-P-Lu/scales/static/js/main.878176c0.js.map",
+    "787.90bbe84c.chunk.js.map": "/Frank-P-Lu/scales/static/js/787.90bbe84c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fcc8065d.css",
+    "static/js/main.878176c0.js"
+  ]
+}
