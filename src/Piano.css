@@ -1,9 +1,19 @@
 .piano-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  height: 50vh; /* Full viewport height */
 }
+
+.settings{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: space-around
+}
+
+
 
 .piano {
   display: grid;
