@@ -122,7 +122,8 @@ function Piano() {
         <div>
           <h1>Scales Practise Tool</h1>
         </div>
-        <JustPiano />
+        <PianoKeysWithScale scale={selectedScale} startNote={selectedNote} />
+
         <div className="settings">
           <ScalePicker selected={selectedScale} onSelect={setSelectedScale} />
           <StartingNotePicker
@@ -147,13 +148,13 @@ function PianoKey({ index, isHighlighted }) {
       className={`key ${keyClass(index)} ${isHighlighted && "highlight"}`}
       style={{ gridColumn: gridColumn }}
     >
-      <span className="note-name">{noteName(index)}</span>
+      {isHighlighted && <span className="note-name">{noteName(index)}</span>}
     </div>
   );
 }
 
 function getScaleNotes(scale, startNote) {
-  if (!scale) {
+  if ((scale === "None") | !scale) {
     return [];
   }
   const selectedScale = SCALES.find((s) => s.Scale.includes(scale));
@@ -169,7 +170,8 @@ function getScaleNotes(scale, startNote) {
 }
 
 function PianoKeysWithScale({ scale, startNote }) {
-  const highlights = getScaleNotes(scale, startNote);
+  const startNoteNum = NOTES.indexOf(startNote);
+  const highlights = getScaleNotes(scale, startNoteNum);
   return (
     <div className="piano">
       {Array.from({ length: TOTAL_KEYS }, (_, i) => (
@@ -179,7 +181,4 @@ function PianoKeysWithScale({ scale, startNote }) {
   );
 }
 
-function JustPiano() {
-  return <PianoKeysWithScale scale={"Dorian"} startNote={2} />;
-}
 export default Piano;
