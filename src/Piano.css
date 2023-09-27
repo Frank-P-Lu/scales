@@ -1,0 +1,49 @@
+.piano-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+.piano {
+  display: grid;
+
+  column-gap: 5px;
+}
+
+.key {
+  height: 30px;
+  width: 30px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+  border-radius: 50%; /* Make it circular */
+}
+
+
+
+.white {
+  background-color: white;
+  grid-row: 2; /* Place in first row */
+
+}
+
+.black {
+  background-color: black;
+  grid-row: 1; /* Place in first row */
+}
+
+.highlight {
+  background-color: slategray;
+}
+
+.note-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  color: black;
+}
+
+.black .note-name {
+  color: white;
+}
