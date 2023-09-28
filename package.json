@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://github.com/Frank-P-Lu/scales",
+  "homepage": "/Frank-P-Lu/scales",
   "scripts": {
     "start": "react-scripts start",
     "predeploy" : "npm run build",
