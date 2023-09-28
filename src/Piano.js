@@ -112,40 +112,122 @@ function StartingNotePicker({ selected, onSelect }) {
   );
 }
 
-function Piano() {
-  const [selectedScale, setSelectedScale] = useState("None");
-  const [selectedNote, setSelectedNote] = useState("C");
+function getRandomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function PracticeMode() {
+  const [randomScale, setRandomScale] = useState("Major");
+  const [startNote, setStartNote] = useState(getRandomItem(NOTES));
+  const [showKeys, setShowKeys] = useState(false);
+  const [selectedScales, setSelectedScales] = useState({
+    "Major/Ionian": true,
+  });
+
+  const generateNewScale = () => {
+    const availableScales = SCALE_NAMES.filter((name) => selectedScales[name]);
+
+    setRandomScale(getRandomItem(availableScales));
+    setStartNote(getRandomItem(NOTES));
+    setShowKeys(false);
+  };
+
+  const toggleScaleSelection = (scale) => {
+    setSelectedScales((prev) => ({ ...prev, [scale]: !prev[scale] }));
+  };
 
   return (
     <>
-      <div className="piano-wrapper">
-        <div>
-          <h1>Scales Practise Tool</h1>
-        </div>
-        <PianoKeysWithScale scale={selectedScale} startNote={selectedNote} />
+      <div>
+        <h1>Scales Practice Tool - Practice</h1>
+      </div>
 
-        <div className="settings">
-          <ScalePicker selected={selectedScale} onSelect={setSelectedScale} />
-          <StartingNotePicker
-            selected={selectedNote}
-            onSelect={setSelectedNote}
-          />
+      <div>
+        <h3>Select Scales</h3>
+        <div className="scale-checkbox-container">
+          {SCALE_NAMES.filter((scale) => scale != "None").map((scale) => (
+            <div key={scale}>
+              <input
+                type="checkbox"
+                id={scale}
+                checked={selectedScales[scale] || false}
+                onChange={() => toggleScaleSelection(scale)}
+              />
+              <label htmlFor={scale}>{scale}</label>
+            </div>
+          ))}
         </div>
+      </div>
+
+      <div>
+        <p>Scale: {randomScale}</p>
+        <p>Starting Note: {startNote}</p>
+      </div>
+
+      <div>
+        <button onClick={() => setShowKeys(!showKeys)}>
+          {showKeys ? "Hide" : "Show"}
+        </button>
+
+        <button onClick={generateNewScale}>Generate New Scale</button>
+      </div>
+
+      {showKeys && (
+        <PianoKeysWithScale scale={randomScale} startNote={startNote} />
+      )}
+    </>
+  );
+}
+
+function ReviewMode() {
+  const [selectedScale, setSelectedScale] = useState("None");
+  const [selectedNote, setSelectedNote] = useState("C");
+  return (
+    <>
+      <div>
+        <h1>Scales Practice Tool - Review</h1>
+      </div>
+
+      <PianoKeysWithScale scale={selectedScale} startNote={selectedNote} />
+
+      <div className="settings">
+        <ScalePicker selected={selectedScale} onSelect={setSelectedScale} />
+        <StartingNotePicker
+          selected={selectedNote}
+          onSelect={setSelectedNote}
+        />
       </div>
     </>
   );
 }
 
-function keyClass(i) {
-  return BLACK_KEYS.includes(i) ? "black" : "white";
+function Piano() {
+  const [currentMode, setCurrentMode] = useState("review"); // 'review' or 'practice'
+
+  return (
+    <>
+      <div className="piano-wrapper">
+        <div>
+          <button onClick={() => setCurrentMode("review")}>Review Mode</button>
+          <button onClick={() => setCurrentMode("practice")}>
+            Practice Mode
+          </button>
+        </div>
+
+        {currentMode == "practice" ? <PracticeMode /> : <ReviewMode />}
+      </div>
+    </>
+  );
 }
 
 function PianoKey({ index, isHighlighted }) {
   const gridColumn = index >= 12 ? index + 2 : index + 1;
+  const keyClass = BLACK_KEYS.includes(index) ? "black" : "white";
+
   return (
     <div
       key={index}
-      className={`key ${keyClass(index)} ${isHighlighted && "highlight"}`}
+      className={`key ${keyClass} ${isHighlighted && "highlight"}`}
       style={{ gridColumn: gridColumn }}
     >
       {isHighlighted && <span className="note-name">{noteName(index)}</span>}
