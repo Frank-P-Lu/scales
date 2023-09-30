@@ -1,11 +1,3 @@
-.piano-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: 50vh; /* Full viewport height */
-}
-
 .settings{
   display: flex;
   flex-direction: row;
@@ -19,15 +11,6 @@
   display: grid;
   column-gap: 5px;
 }
-
-.key {
-  height: 30px;
-  width: 30px;
-  border: 1px solid #000;
-  box-sizing: border-box;
-  border-radius: 50%; /* Make it circular */
-}
-
 
 
 .white {
@@ -65,7 +48,6 @@
 
 
 /* Practice Mode */
-
 .scale-checkbox-container {
   display: grid;
   grid-template-columns: 1fr 1fr;

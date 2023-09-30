@@ -139,7 +139,7 @@ function PracticeMode() {
   return (
     <>
       <div>
-        <h1>Scales Practice Tool - Practice</h1>
+        <h1 className="text-4xl font-bold">Scales Practice Tool - Practice</h1>
       </div>
 
       <div>
@@ -164,12 +164,12 @@ function PracticeMode() {
         <p>Starting Note: {startNote}</p>
       </div>
 
-      <div>
-        <button onClick={() => setShowKeys(!showKeys)}>
-          {showKeys ? "Hide" : "Show"}
-        </button>
-
-        <button onClick={generateNewScale}>Generate New Scale</button>
+      <div className="space-x-4">
+        <BlueButton
+          text={showKeys ? "Hide" : "Show"}
+          onClick={() => setShowKeys(!showKeys)}
+        />
+        <BlueButton text="Generate New Scale" onClick={generateNewScale} />
       </div>
 
       {showKeys && (
@@ -185,7 +185,7 @@ function ReviewMode() {
   return (
     <>
       <div>
-        <h1>Scales Practice Tool - Review</h1>
+        <h1 className="text-4xl font-bold">Scales Practice Tool - Review</h1>
       </div>
 
       <PianoKeysWithScale scale={selectedScale} startNote={selectedNote} />
@@ -201,17 +201,32 @@ function ReviewMode() {
   );
 }
 
+function BlueButton({ text, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className="px-4 py-1 text-sm text-blue-600 font-semibold rounded-full border border-blue-200 hover:text-white hover:bg-blue-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"
+    >
+      {text}
+    </button>
+  );
+}
+
 function Piano() {
   const [currentMode, setCurrentMode] = useState("review"); // 'review' or 'practice'
 
   return (
     <>
-      <div className="piano-wrapper">
-        <div>
-          <button onClick={() => setCurrentMode("review")}>Review Mode</button>
-          <button onClick={() => setCurrentMode("practice")}>
-            Practice Mode
-          </button>
+      <div className="flex justify-center flex-col items-center space-y-4">
+        <div className="space-x-4 space-y-2">
+          <BlueButton
+            text="Review Mode"
+            onClick={() => setCurrentMode("review")}
+          />
+          <BlueButton
+            text="Practice Mode"
+            onClick={() => setCurrentMode("practice")}
+          />
         </div>
 
         {currentMode == "practice" ? <PracticeMode /> : <ReviewMode />}
@@ -222,12 +237,16 @@ function Piano() {
 
 function PianoKey({ index, isHighlighted }) {
   const gridColumn = index >= 12 ? index + 2 : index + 1;
-  const keyClass = BLACK_KEYS.includes(index) ? "black" : "white";
+  const keyClass = BLACK_KEYS.includes(index)
+    ? "bg-black row-start-1"
+    : "bg-white row-start-2";
 
   return (
     <div
       key={index}
-      className={`key ${keyClass} ${isHighlighted && "highlight"}`}
+      className={`h-8 w-8 border border-black rounded-full ${keyClass} ${
+        isHighlighted && "highlight"
+      }`}
       style={{ gridColumn: gridColumn }}
     >
       {isHighlighted && <span className="note-name">{noteName(index)}</span>}
@@ -255,7 +274,7 @@ function PianoKeysWithScale({ scale, startNote }) {
   const startNoteNum = NOTES.indexOf(startNote);
   const highlights = getScaleNotes(scale, startNoteNum);
   return (
-    <div className="piano">
+    <div className="grid grid-rows-2 gap-x-1">
       {Array.from({ length: TOTAL_KEYS }, (_, i) => (
         <PianoKey key={i} index={i} isHighlighted={highlights.includes(i)} />
       ))}

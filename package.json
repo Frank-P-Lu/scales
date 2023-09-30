@@ -9,6 +9,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "tailwindcss": "^3.3.3",
     "web-vitals": "^2.1.4"
   },
   "homepage": "https://Frank-P-Lu.github.io/scales/",
@@ -16,6 +17,7 @@
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
+    "build:css": "tailwindcss build src/index.css -o src/tailwind.css",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
